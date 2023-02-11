@@ -1,0 +1,316 @@
+import time as t
+import random as r # various imports
+import sys as s
+weed = 10
+planes = 2 #Base stats for placrholders
+money = 0
+health_difficulty_modifier = 0
+
+def loadcycle(): #creates the *** load cycle
+    i = [1,2,3,4,5]
+    for x in i:             
+        t.sleep(r.randint(0,1))
+        print("*"*x)
+    
+class Enemy:
+    def attack():
+        enemy_attack_damage=r.randint(attack_damage_lower,attack_damage_upper)
+        Anthony.health -= enemy_attack_damage
+class Gremlin(Enemy):
+    
+    def attack():
+        attack_damage_lower = 1
+        attack_damage_upper = 5
+
+        
+    def health():
+        health = 5
+        print(health)
+        
+class Weed_Gremlin(Enemy):
+    def attack():
+        attack_damage_lower = 2
+        attack_damge_upper = 6
+
+        
+    def health():
+        
+        health = 8
+
+        
+class Pilot(Enemy):
+    def attack():
+        attack_damage_lower = 4
+        attack_damage_upper = 8
+
+    def health():
+        
+        health = 12
+
+        
+class Drug_Dealer(Enemy):
+    def attack():
+        attack_damage_lower = 5
+        attack_damage_upper = 10
+        
+
+    def health():
+        health = 15
+
+        
+class Ollie_spawn(Enemy):
+    
+    def attack():
+        attack_damage_lower = 6
+        attack_damage_upper = 10
+        
+
+class Ollie:
+    
+    def attack():
+        attack_damage_lower = 8
+        attack_damage_upper = 13
+
+        
+    def special_attack():
+        attack_damage_s = 15
+
+        
+    def dialouge():
+        ollie_dialouge = {
+            1 : "IM BURGER OLLIEEEE!",
+            2 : "IM GONNA SMASH YOU LIKE I SMASHED MY WIFE",
+            3 : "*MONKEY NOISES*",
+            4 : "NO RESTRAINING ORDER CAN HOLD ME BACK!",
+            5 : "IM OLDER THAN MY PARENTS!"
+            }
+        dialouge_ollie_say = r.randint(1,5)
+        print(ollie_dialouge[dialouge_ollie_say])
+    
+    
+class Spencer():
+    
+    def attack():
+        attack_damage_lower = 8
+        attack_damage_upper = 13
+    
+
+class Anthony: #anthonys states
+    
+    def health():#base health states
+        health = 50 + health_difficulty_modifier
+        print(health)
+        
+    def attack(): # attack types heavy or light
+        
+        attack_type = input("Heavy or Light Attack? (h or l")
+        if attack_type.lower() == "h":
+            attack_damage = r.randint(3,10)
+        elif attack_type.lower() == "l":
+            attack_damage = r.randint(1,7)
+            Anthony.defense()
+            
+        else:
+            print("Sorry I didn't understand that last one")
+            Anthony.attack()
+            
+        
+    def defense():#defense bonus on light attacks
+        Enemy.attack_damage -= 3
+        if Enemy.attack_damage <= 0:
+            Enemy.attack_damage = 0
+        pass
+    def death():#death check
+        if health <=  0:
+            print("You Have died")
+        elif weed == 0:
+            print("You ran out of weed and died of withdrawal")
+    
+    pass
+
+
+def difficulty(): #select difficulty
+    
+    difficultyin = input("""
+Please Select Difficulty
+
+        Easy(1):
+
+        Medium(2):
+
+        Hard(3):
+
+>>>""")
+    if difficultyin == "1":
+        print("    Easy mode engaged")
+        health_difficulty_modifier = 20
+        print("""    Your health has been set to 70
+        Weed = 10
+        Planes = 2
+        """)
+        planes = 2
+    elif difficultyin == "2":
+        print("Normal mode Enganged")
+        health_difficulty_modifier = 10
+        planes = 2
+        print("""  Your health has been set to 60
+        Weed = 10
+        Planes = 2
+        """)
+ 
+    elif difficultyin == "3":
+        print("Hard mode engaged")
+        health_difficulty_modifier = 0
+        print("""  Your health has been set to 50
+        Weed = 10
+        Planes = 2
+        """)
+        planes = 2
+        
+    elif difficultyin == "666":
+        print(" NIGHTMARE MODE ENGAGED")
+        planes = 0
+        health_difficulty_modifier = -5
+        print("""  You are dead sunshine
+        Health:45
+        Planes:0
+        Weed:10
+        """)
+        
+    else:
+        print("Sorry I don't understand this command!")
+        difficulty()
+
+        
+class Tutorial:
+    def tutorial_start():        
+        error_tutorial = True  
+        while error_tutorial == True:
+            tutorial_start = input("Would you like a tutorial? (y or n)")
+            if tutorial_start == "y":
+                error_tutorial = False
+                Tutorial.tutorial_main()
+                pass
+            elif tutorial_start == "n":
+                error_tutorial = False
+                pass
+            else:
+                print("Sorry I didn't understand that")
+
+                
+    def tutorial_main():
+        print("Tutorial Starting")
+        loadcycle()
+        loadcycle()
+        print("\n\nWelcome to the tutorial")
+        t.sleep(1)
+        print("\n\nThe goal of the Anthony Game is simple.")
+        t.sleep(1)
+        print("Get through all 4 chapters of the game and dont die.")
+        t.sleep(1)
+        print("You die if you run out of health or weed!")
+        t.sleep(1)
+        tutorial_input=input("We're now going to enter the tutorial room now. Press ANY key to continue")
+        loadcycle()
+        Tutorial.tutorial_fight_room()
+    def tutorial_fight_room():
+        print(" Okay we're in the fight room now")
+        t.sleep(1)
+        print("""
+
+    Anthony                       Gremlin
+    Health: """,Anthony.health(),"""               Health: """,Gremlin.health(),)
+        
+        
+
+
+class Menu: #mainmenu screen and various options 
+
+    
+    def mainmenu():
+        menuinput = input("""
+        Anthony Game!
+
+          New Game (n)
+
+        Continue Game (c)
+
+        Stats(for in game) (s)
+
+           Exit (e)
+
+>>> """)
+        if menuinput.lower() == "n":
+            Menu.newgame()
+        elif menuinput.lower() == "c":
+            Menu.continue_game()
+        elif  menuinput.lower() == "e":
+            Menu.exit()
+        elif menuinput.lower() == "s":
+            Menu.stats()
+        else:
+            print("Sorry I didn't understand this")
+            Menu.mainmenu()
+            
+
+    def newgame():
+        continue_phase = input("""
+You have selected new game
+
+Buckle your arses its gonna be a fun one
+Press any key to continue!""")
+        pass
+    
+        
+    def continue_game():
+        print("Continuing Game is currently not a feature")
+        Menu.mainmenu()
+
+
+    
+    def exit():
+        Exit_in = input("Are you sure you want to Exit? (y or n)")
+        if Exit_in == "y":
+            print("Exiting Now!")
+            quit()
+        elif Exit_in == "n":
+            print("Going back to main menu")
+            Menu.mainmenu()              
+            
+        else:
+            print("Sorry I didn't understand this")
+            Menu.exit()
+            
+        pass
+
+    def stats():
+        try:
+            print(f"""  Health:{health}
+        Weed:{weed}
+        Planes:{planes}""")
+        except NameError:
+            print("Stats can only be used in game!")
+            Menu.mainmenu()
+            
+
+
+
+
+
+def intro():
+    continue_phase= input("""
+--------------------------------------------
+|      WELCOME TO THE ANTHONY GAME         |
+|             by Owen Crouch               |
+--------------------------------------------
+
+Press the ANY key to continue ...""")
+    print(""" PLACEHOLDER OF ANTHONY FACE""")
+
+intro()
+
+Menu.mainmenu()
+
+difficulty()
+
+Tutorial.tutorial_start()
